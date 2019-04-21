@@ -25,7 +25,15 @@ export default class HomeScreen extends React.Component {
             modalVisible: false,
             inputText: '',
             charLeft: 240,
+            isFetching: false,
         };
+    }
+
+    onRefresh() {
+        this.setState({ isFetching: true }, function() {
+            this.getNewsStories();
+            this.setState({ isFetching: false });
+        });
     }
 
     componentWillMount() {
@@ -128,6 +136,10 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <CardList
+                    listProps={{
+                        onRefresh: () => this.onRefresh(),
+                        refreshing: this.state.isFetching,
+                    }}
                     ref={list => (this.list = list)}
                     data={this.state.newsStories}
                     renderItem={({ item }) => {
