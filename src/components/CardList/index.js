@@ -19,6 +19,8 @@ import BigButton from '../BigButton';
 import AppStyle from '../../styles/AppStyle';
 import { Card, CardContent, CloseButton, DetailsContent } from './components';
 
+const { width, height } = Dimensions.get('window');
+
 class CardList extends React.Component {
     state = {
         activeCard: 0,
@@ -109,28 +111,28 @@ class CardList extends React.Component {
                 Animated.parallel([
                     Animated.timing(this.position.x, {
                         toValue: this.oldPosition.x,
-                        duration: 300,
+                        duration: 200,
                     }),
                     Animated.timing(this.position.y, {
                         toValue: this.oldPosition.y,
                         easing: Easing.bezier(0.175, 0.885, 0.32, 1.275),
-                        duration: 300,
+                        duration: 200,
                     }),
                     Animated.timing(this.dimensions.x, {
                         toValue: this.oldPosition.width,
-                        duration: 300,
+                        duration: 200,
                     }),
                     Animated.timing(this.dimensions.y, {
                         toValue: this.oldPosition.height,
-                        duration: 300,
+                        duration: 200,
                     }),
                     Animated.timing(this.animated, {
                         toValue: 0,
-                        duration: 300,
+                        duration: 200,
                     }),
                     Animated.timing(this.detailAnimated, {
                         toValue: 0,
-                        duration: 100,
+                        duration: 200,
                     }),
                 ]).start(() => {
                     StatusBar.setHidden(false, 'slide');
@@ -145,7 +147,10 @@ class CardList extends React.Component {
 
     keyExtractor = (item, index) => `item-${index}`;
 
-    renderPreview = ({ category, title, previewText }, active) => {
+    renderPreview = (
+        { category, title, previewText, reportedCount },
+        active,
+    ) => {
         return (
             <View
                 style={{
@@ -186,26 +191,32 @@ class CardList extends React.Component {
                         {previewText}
                     </Text>
                 )}
+                {active ? (
+                    <Text>Reported by {reportedCount} people</Text>
+                ) : null}
             </View>
         );
     };
 
     renderItem = ({ item, index }) => {
-        if (!item)
-        {
+        if (!item) {
             return (
-                <Text style={{
-                    textAlign: 'center',
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    marginVertical: 15,
-                }}>No new stories</Text>
+                <Text
+                    style={{
+                        textAlign: 'center',
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        marginVertical: 15,
+                    }}
+                >
+                    No new stories
+                </Text>
             );
         }
-        
+
         const { activeCard } = this.state;
         // Takes this directly from cards.js
-        const { renderItem, cardWidth } = this.props;
+        const { category, title } = item;
 
         // This cloned element is the preview element
         // The cloned element will be animated while the card opens
@@ -224,6 +235,19 @@ class CardList extends React.Component {
             customContainerStyle.push({
                 opacity,
             });
+        }
+
+        console.log(category);
+        if (category === 'Important') {
+            return (
+                <View style={styles.importantNews}>
+                    <Image
+                        style={{ width: 40, height: 40 }}
+                        source={require('../../img/attention.png')}
+                    />
+                    <Text style={styles.importantText}>{title}</Text>
+                </View>
+            );
         }
 
         return (
@@ -504,4 +528,28 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         marginVertical: 10,
     },
+    importantNews: {
+        padding: 15,
+        marginTop: 10,
+        marginHorizontal: 16,
+        borderRadius: 20,
+        width: width - 32,
+        backgroundColor: AppStyle.red,
+        flexDirection: 'row',
+        alignItems: 'center',
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOpacity: 0.3,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowRadius: 10,
+    },
+    importantText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 20,
+        maxWidth: '80%',
+        marginLeft: 15,
+    }
 });

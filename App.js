@@ -8,6 +8,8 @@ import Router from './Router';
 // npm start -- --reset-cache
 // rm -rf /tmp/haste-map-react-native-packager-*
 
+console.disableYellowBox = true;
+
 export default class App extends React.Component {
     render() {
         return (
