@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         height: 60,
         width: 60,
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOpacity: 0.3,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowRadius: 5,
     },
     textStyle: {
         textAlign: 'center',

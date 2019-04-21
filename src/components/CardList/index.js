@@ -192,7 +192,7 @@ class CardList extends React.Component {
                     </Text>
                 )}
                 {active ? (
-                    <Text>Reported by {reportedCount} people</Text>
+                    <Text style={{color: AppStyle.pink, fontSize: 16,}}>Reported by {reportedCount} people</Text>
                 ) : null}
             </View>
         );
@@ -207,6 +207,7 @@ class CardList extends React.Component {
                         fontSize: 20,
                         fontWeight: 'bold',
                         marginVertical: 15,
+                        marginBottom: 60,
                     }}
                 >
                     No new stories
@@ -407,6 +408,7 @@ class CardList extends React.Component {
                             styles.scrollViewContainer,
                             {
                                 backgroundColor: activeCardBackground,
+                                flex: 1,
                             },
                         ]}
                         contentContainerStyle={
@@ -414,57 +416,63 @@ class CardList extends React.Component {
                         }
                         pointerEvents={activeCard ? 'auto' : 'none'}
                     >
-                        {/* Header section. Moves upwards and expands. */}
-                        <Card
-                            // Height of the image when the card is opened
-                            // cardHeight={
-                            //     activeCard ? data[activeCard - 1].height : null
-                            // }}
-                            customContainerStyle={[activeCardStyle]}
-                        >
-                            <CloseButton
-                                onPress={this.shrink}
-                                opacity={closeOpacity}
-                            />
-                            <CardContent
-                                customContainerStyle={{
-                                    borderRadius: activeCardBorderRadius,
-                                }}
+                        <View style={{flex: 1,}}>
+                            {/* Header section. Moves upwards and expands. */}
+                            <Card
+                                // Height of the image when the card is opened
+                                // cardHeight={
+                                //     activeCard ? data[activeCard - 1].height : null
+                                // }}
+                                customContainerStyle={[activeCardStyle]}
                             >
-                                {/* <Image
-                                    source={
-                                        activeCard
-                                            ? data[activeCard - 1].image
-                                            : null
-                                    }
-                                    style={styles.image}
-                                    resizeMode="cover"
-                                /> */}
-                                {/* {
-                                    activeCard ?
-                                        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-                                            Ongoing News
-                                        </Text>
-                                        : null
-                                } */}
-                                {/* This will get the cloned version of the
-                                renderItem that was supplied in cards.js */}
-                                {this.clones[activeCard] || null}
-                            </CardContent>
-                        </Card>
-
-                        {/* Details section. Fades in. */}
-                        <Animated.View style={activeDetailsStyle}>
-                            <DetailsContent>
-                                {(activeCard &&
-                                    renderDetails(activeCard - 1)) ||
-                                    null}
-                                <BigButton
-                                    text={'Finished Reading'}
+                                <CloseButton
                                     onPress={this.shrink}
+                                    opacity={closeOpacity}
                                 />
-                            </DetailsContent>
-                        </Animated.View>
+                                <CardContent
+                                    customContainerStyle={{
+                                        borderRadius: activeCardBorderRadius,
+                                    }}
+                                >
+                                    {/* <Image
+                                        source={
+                                            activeCard
+                                                ? data[activeCard - 1].image
+                                                : null
+                                        }
+                                        style={styles.image}
+                                        resizeMode="cover"
+                                    /> */}
+                                    {/* {
+                                        activeCard ?
+                                            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+                                                Ongoing News
+                                            </Text>
+                                            : null
+                                    } */}
+                                    {/* This will get the cloned version of the
+                                    renderItem that was supplied in cards.js */}
+                                    {this.clones[activeCard] || null}
+                                </CardContent>
+                            </Card>
+
+                            {/* Details section. Fades in. */}
+                            <Animated.View style={activeDetailsStyle}>
+                                <DetailsContent>
+                                    {(activeCard &&
+                                        renderDetails(activeCard - 1)) ||
+                                        null}
+                                    <Image
+                                        style={styles.mapImage}
+                                        source={require('../../img/Map1.png')}
+                                    />
+                                    <BigButton
+                                        text={'Finished Reading'}
+                                        onPress={this.shrink}
+                                    />
+                                </DetailsContent>
+                            </Animated.View>
+                            </View>
                     </Animated.ScrollView>
                 </View>
             </SafeAreaView>
@@ -516,6 +524,7 @@ const styles = StyleSheet.create({
     },
     ghostViewContainer: {
         ...StyleSheet.absoluteFill,
+        flex: 1,
     },
     scrollViewContainer: {
         ...StyleSheet.absoluteFill,
@@ -551,5 +560,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         maxWidth: '80%',
         marginLeft: 15,
-    }
+    },
+    mapImage: {
+        borderRadius: 20,
+        alignSelf: 'center',
+        width: '90%',
+        height: '40%',
+    },
 });
