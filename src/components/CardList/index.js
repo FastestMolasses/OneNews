@@ -9,12 +9,14 @@ import {
     Animated,
     Easing,
     FlatList,
+    SectionList,
     StatusBar,
     Image,
     Dimensions,
 } from 'react-native';
 
 import BigButton from '../BigButton';
+import AppStyle from '../../styles/AppStyle';
 import { Card, CardContent, CloseButton, DetailsContent } from './components';
 
 class CardList extends React.Component {
@@ -300,7 +302,7 @@ class CardList extends React.Component {
 
         return (
             <SafeAreaView style={{ flex: 1 }} forceInset={{ bottom: 'never' }}>
-                <FlatList
+                {/* <FlatList
                     // contentContainerStyle={}
                     contentContainerStyle={[
                         styles.flatlistContainer,
@@ -311,6 +313,39 @@ class CardList extends React.Component {
                     ]}
                     keyExtractor={this.keyExtractor}
                     data={data}
+                    renderItem={this.renderItem}
+                    {...listProps}
+                /> */}
+                <SectionList
+                    contentContainerStyle={[
+                        styles.flatlistContainer,
+                        listContainerStyle,
+                        {
+                            backgroundColor: 'transparent',
+                        },
+                    ]}
+                    stickySectionHeadersEnabled={true}
+                    keyExtractor={this.keyExtractor}
+                    sections={data}
+                    renderSectionHeader={({ section: { title } }) => {
+                        return (
+                            <View
+                                style={{
+                                    backgroundColor: 'white',
+                                    paddingHorizontal: 17,
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        borderColor: AppStyle.pink,
+                                        borderBottomWidth: 3,
+                                    }}
+                                >
+                                    <Text style={styles.dateText}>{title}</Text>
+                                </View>
+                            </View>
+                        );
+                    }}
                     renderItem={this.renderItem}
                     {...listProps}
                 />
@@ -451,5 +486,10 @@ const styles = StyleSheet.create({
     },
     scrollViewContentContainer: {
         flexGrow: 1,
+    },
+    dateText: {
+        fontSize: 32,
+        fontWeight: '800',
+        marginVertical: 10,
     },
 });
