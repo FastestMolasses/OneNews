@@ -38,20 +38,19 @@ export default class HomeScreen extends React.Component {
                         textData:
                             'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
                     },
-                ],
-            },
-            {
-                title: 'Sat, Apr 20',
-                data: [
                     {
                         category: 'World News',
                         title: 'Enhance your artistic skills',
                         previewText:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
                         textData:
-                            'ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+                            'dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
                     },
                 ],
+            },
+            {
+                title: 'Sat, Apr 20',
+                data: [null],
             },
         ];
     };
@@ -65,35 +64,33 @@ export default class HomeScreen extends React.Component {
         });
 
         return (
-            <CardList
-                // listProps={{
-                //     ListHeaderComponent: () => (
-                        
-                //     ),
-                // }}
-                data={this.getNewsStories()}
-                renderItem={({ item }) => {
-                    return item.renderItem({ item });
-                }}
-                renderDetails={index => (
-                    <View
-                        style={{
-                            paddingVertical: 30,
-                            paddingHorizontal: 16,
-                            flex: 1,
-                        }}
-                    >
-                        <Text
+            <View style={{ flex: 1 }}>
+                <CardList
+                    data={this.getNewsStories()}
+                    renderItem={({ item }) => {
+                        return item.renderItem({ item });
+                    }}
+                    renderDetails={index => (
+                        <View
                             style={{
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                fontSize: 18,
+                                paddingVertical: 30,
+                                paddingHorizontal: 16,
+                                flex: 1,
                             }}
                         >
-                            {CARDS[index].textData}
-                        </Text>
-                    </View>
-                )}
-            />
+                            <Text
+                                style={{
+                                    color: 'rgba(0, 0, 0, 0.7)',
+                                    fontSize: 18,
+                                }}
+                            >
+                                {CARDS[index].textData}
+                            </Text>
+                        </View>
+                    )}
+                />
+                <SmallButton onPress={() => {}} />
+            </View>
         );
     }
 }

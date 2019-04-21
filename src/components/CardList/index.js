@@ -191,6 +191,18 @@ class CardList extends React.Component {
     };
 
     renderItem = ({ item, index }) => {
+        if (!item)
+        {
+            return (
+                <Text style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    marginVertical: 15,
+                }}>No new stories</Text>
+            );
+        }
+        
         const { activeCard } = this.state;
         // Takes this directly from cards.js
         const { renderItem, cardWidth } = this.props;

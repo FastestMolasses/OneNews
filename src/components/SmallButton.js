@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TouchableHighlight, Image } from 'react-native';
 
 import AppStyle from '../styles/AppStyle';
 
-export default (SmallButton = ({ text }) => {
+export default (SmallButton = ({ text, onPress }) => {
     return (
-        <TouchableOpacity style={styles.container}>
-            <Text style={styles.textStyle}>{text}</Text>
-        </TouchableOpacity>
+        <TouchableHighlight style={styles.container} onPress={onPress} underlayColor='#0088d8'>
+            <Image style={styles.image} source={require('../img/pencil.png')} />
+        </TouchableHighlight>
     );
 });
 
@@ -29,4 +29,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
     },
+    image: {
+        width: 25,
+        height: 25,
+        tintColor: 'white',
+        // justifyContent: 'center',
+        // alignContent: 'center',
+        alignSelf: 'center',
+    }
 });
